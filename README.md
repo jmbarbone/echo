@@ -10,6 +10,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/echo)](https://CRAN.R-project.org/package=echo)
 [![R-CMD-check](https://github.com/jmbarbone/echo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jmbarbone/echo/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/jmbarbone/echo/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jmbarbone/echo?branch=main)
 <!-- badges: end -->
 
 The goal of `{echo}` is to provide a function for evaluating and logging
@@ -36,14 +38,13 @@ try(echo(level = 0, exprs = {
   warning("hello!")
   stop("error here")
 }), silent = TRUE)
-#> [2023-02-10 05:20:40] [EXP] print(1 + 1)
-#> [2023-02-10 05:20:40] [OUT] #> [1] 2
-#> [2023-02-10 05:20:40] [EXP] data.frame(a = 1:5, b = letters[1:5])
-#> [2023-02-10 05:20:40] [OUT] #> 
-#> [2023-02-10 05:20:40] [EXP] message("hello!")
-#> [2023-02-10 05:20:40] [MSG] #> hello!
-#> [2023-02-10 05:20:40] [EXP] warning("hello!")
-#> [2023-02-10 05:20:40] [WRN] #> hello!
-#> [2023-02-10 05:20:40] [EXP] stop("error here")
-#> [2023-02-10 05:20:40] [ERR] #> error here
+#> [2023-02-10 05:47:17] [EXP] print(1 + 1)
+#> [2023-02-10 05:47:17] [OUT] #> [1] 2
+#> [2023-02-10 05:47:17] [EXP] data.frame(a = 1:5, b = letters[1:5])
+#> [2023-02-10 05:47:17] [EXP] message("hello!")
+#> [2023-02-10 05:47:17] [MSG] #> hello!
+#> [2023-02-10 05:47:17] [EXP] warning("hello!")
+#> [2023-02-10 05:47:17] [WRN] #> hello!
+#> [2023-02-10 05:47:17] [EXP] stop("error here")
+#> [2023-02-10 05:47:17] [ERR] #> error here
 ```
