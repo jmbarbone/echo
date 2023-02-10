@@ -16,9 +16,9 @@
 #'   logged as they will interrupt and stop the program.
 #'
 #' @param exprs Expressions to evaluate.
-#' @param to A connection or file name for outputs
-#' @param msg Logical, if `FALSE` does not output a message
-#' @param level Sets the echo level (see details)
+#' @param log A connection or file name for outputs; defaults to `stdout()`
+#' @param msg Logical, if `FALSE` does not output a message; defaults to `TRUE`
+#' @param level Sets the echo level (see details); defaults to `0L`
 #' @param file File path to evaluate (like [base::source()]).  If `file` is not
 #'   `NULL`, then `exprs` must be missing.
 #' @returns Nothing, called for side-effects

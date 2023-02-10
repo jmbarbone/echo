@@ -15,14 +15,14 @@ echo(
 \arguments{
 \item{exprs}{Expressions to evaluate.}
 
-\item{msg}{Logical, if \code{FALSE} does not output a message}
+\item{log}{A connection or file name for outputs; defaults to \code{stdout()}}
 
-\item{level}{Sets the echo level (see details)}
+\item{msg}{Logical, if \code{FALSE} does not output a message; defaults to \code{TRUE}}
+
+\item{level}{Sets the echo level (see details); defaults to \code{0L}}
 
 \item{file}{File path to evaluate (like \code{\link[base:source]{base::source()}}).  If \code{file} is not
 \code{NULL}, then \code{exprs} must be missing.}
-
-\item{to}{A connection or file name for outputs}
 }
 \value{
 Nothing, called for side-effects
