@@ -4,4 +4,14 @@ test_that("echo works", {
     substr(res, 23, nchar(res)),
     c("[EXP] print(1)", "[OUT] #> [1] 1")
   )
+
+  expect_error(
+    capture.output(echo({
+      print(NULL)
+      invisible(1)
+      message("message")
+      warning("warning")
+      stop("error")
+    })
+  ))
 })
