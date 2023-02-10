@@ -72,10 +72,10 @@ evaluate <- function(expr, env = env) {
   dep <- deparse1(expr)
   echo_exp(dep)
 
-  res <- tryCatch(
+  output <- utils::capture.output(value <- tryCatch(
     eval(as.expression(expr), envir = env),
     message = function(e) {
-      echo_msg(e)
+      echo_msg(conditionMessage(e))
       tryInvokeRestart("muffleMessage")
     },
     warning = function(e) {
@@ -86,11 +86,13 @@ evaluate <- function(expr, env = env) {
       echo_err(conditionMessage(e))
       stop("Error in ", dep, "\n  ", conditionMessage(e), call. = FALSE)
     }
-  )
+  ))
 
-  if (is.null(res)) {
+  if (is.null(value)) {
     utils::flush.console()
   } else {
-    echo_out(utils::capture.output(res))
+    echo_out(output)
   }
+
+  invisible(value)
 }
