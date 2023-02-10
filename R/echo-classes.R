@@ -12,6 +12,10 @@ print.echo_exp <- function(x) {
 }
 
 print.echo_out <- function(x) {
+  if (!length(x) || isTRUE(!nzchar(x))) {
+    return(invisible())
+  }
+
   catln(paste0(time(), "[OUT] #> ", x, collapse = "\n"))
 }
 
