@@ -8,15 +8,19 @@ echo(
   exprs,
   log = echo_get_log(),
   msg = echo_get_msg(),
-  level = echo_get_level()
+  level = echo_get_level(),
+  file = NULL
 )
 }
 \arguments{
+\item{exprs}{Expressions to evaluate.}
+
 \item{msg}{Logical, if \code{FALSE} does not output a message}
 
 \item{level}{Sets the echo level (see details)}
 
-\item{expr}{Expressions to evaluate}
+\item{file}{File path to evaluate (like \code{\link[base:source]{base::source()}}).  If \code{file} is not
+\code{NULL}, then \code{exprs} must be missing.}
 
 \item{to}{A connection or file name for outputs}
 }
@@ -30,11 +34,11 @@ Echo expression or a file
 Levels of output can be controlled with \code{level}:
 
 \describe{
-\item{\code{4}}{\code{EXP}: logs expressions that were evaluated}
-\item{\code{3}}{\code{OUT}: logs outputs from expressions}
+\item{\code{0}}{\code{EXP}: logs expressions that were evaluated}
+\item{\code{1}}{\code{OUT}: logs outputs from expressions}
 \item{\code{2}}{\code{MSG}: logs messages}
-\item{\code{1}}{\code{WRN}: logs warnings}
-\item{\code{0}}{\code{ERR}: logs errors}
+\item{\code{3}}{\code{WRN}: logs warnings}
+\item{\code{4}}{\code{ERR}: logs errors}
 }
 
 When set, all outputs at the \code{level} or below are run. Errors are always
@@ -49,4 +53,6 @@ try(echo({
   warning(2)
   stop(3)
 }))
+
+try(echo(file = system.file("example-script.R", package = "echo")))
 }

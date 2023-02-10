@@ -5,20 +5,22 @@
 #' @details Levels of output can be controlled with `level`:
 #'
 #' \describe{
-#'   \item{`4`}{`EXP`: logs expressions that were evaluated}
-#'   \item{`3`}{`OUT`: logs outputs from expressions}
+#'   \item{`0`}{`EXP`: logs expressions that were evaluated}
+#'   \item{`1`}{`OUT`: logs outputs from expressions}
 #'   \item{`2`}{`MSG`: logs messages}
-#'   \item{`1`}{`WRN`: logs warnings}
-#'   \item{`0`}{`ERR`: logs errors}
+#'   \item{`3`}{`WRN`: logs warnings}
+#'   \item{`4`}{`ERR`: logs errors}
 #' }
 #'
-#' When set, all outputs at the `level` or below are run. Errors are always
-#' logged as they will interrupt and stop the program.
+#'   When set, all outputs at the `level` or below are run. Errors are always
+#'   logged as they will interrupt and stop the program.
 #'
-#' @param expr Expressions to evaluate
+#' @param exprs Expressions to evaluate.
 #' @param to A connection or file name for outputs
 #' @param msg Logical, if `FALSE` does not output a message
 #' @param level Sets the echo level (see details)
+#' @param file File path to evaluate (like [base::source()]).  If `file` is not
+#'   `NULL`, then `exprs` must be missing.
 #' @returns returns the last evaluated value, invisibly
 #' @examples
 #' try(echo({
@@ -29,12 +31,15 @@
 #'   warning(2)
 #'   stop(3)
 #' }))
+#'
+#' try(echo(file = system.file("example-script.R", package = "echo")))
 #' @export
 echo <- function(
     exprs,
     log = echo_get_log(),  # stdout()
     msg = echo_get_msg(),  # TRUE
-    level = echo_get_level()
+    level = echo_get_level(),
+    file = NULL
 ) {
   op <- options(
     echo.msg = msg,
@@ -46,7 +51,14 @@ echo <- function(
 
   env <- environment()
   # TODO add feature to read file
-  exprs <- as.list(substitute(exprs))[-1]
+  if (!is.null(file)) {
+    if (!missing(exprs)) {
+      stop("If 'file' is not NULL, 'expr' must be missing", call. = FALSE)
+    }
+    exprs <- parse(file)
+  } else {
+    exprs <- as.list(substitute(exprs))[-1]
+  }
 
   # TODO add functions for other controls
   for (expr in exprs) {
