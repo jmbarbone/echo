@@ -1,10 +1,3 @@
-# TODO implement echo levels:
-# 4 = EXP : expressions run
-# 3 = OUT : expression output
-# 2 = MSG : messages
-# 1 = WRN : warnings
-# 0 = ERR : errors
-
 #' Echo
 #'
 #' Echo expression or a file
