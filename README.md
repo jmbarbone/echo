@@ -31,20 +31,31 @@ remotes::install_github("jmbarbone/echo")
 
 ``` r
 library(echo)
-try(echo(level = 0, exprs = {
-  print(1 + 1)
-  data.frame(a = 1:5, b = letters[1:5])
-  message("hello!")
-  warning("hello!")
-  stop("error here")
-}), silent = TRUE)
-#> [2023-02-10 05:47:17] [EXP] print(1 + 1)
-#> [2023-02-10 05:47:17] [OUT] #> [1] 2
-#> [2023-02-10 05:47:17] [EXP] data.frame(a = 1:5, b = letters[1:5])
-#> [2023-02-10 05:47:17] [EXP] message("hello!")
-#> [2023-02-10 05:47:17] [MSG] #> hello!
-#> [2023-02-10 05:47:17] [EXP] warning("hello!")
-#> [2023-02-10 05:47:17] [WRN] #> hello!
-#> [2023-02-10 05:47:17] [EXP] stop("error here")
-#> [2023-02-10 05:47:17] [ERR] #> error here
+try(echo(
+  expr = {
+    print(1 + 1)
+    df <- data.frame(a = 1:5, b = letters[1:5])
+    print(df)
+    message("hello!")
+    warning("hello!")
+    stop("error here")
+  },
+  level = 0
+), silent = TRUE)
+#> [2023-02-10 20:35:38] [EXP] print(1 + 1)
+#> [2023-02-10 20:35:38] [OUT] #> [1] 2
+#> [2023-02-10 20:35:38] [EXP] df <- data.frame(a = 1:5, b = letters[1:5])
+#> [2023-02-10 20:35:38] [EXP] print(df)
+#> [2023-02-10 20:35:38] [OUT] #>   a b
+#> [2023-02-10 20:35:38] [OUT] #> 1 1 a
+#> [2023-02-10 20:35:38] [OUT] #> 2 2 b
+#> [2023-02-10 20:35:38] [OUT] #> 3 3 c
+#> [2023-02-10 20:35:38] [OUT] #> 4 4 d
+#> [2023-02-10 20:35:38] [OUT] #> 5 5 e
+#> [2023-02-10 20:35:38] [EXP] message("hello!")
+#> [2023-02-10 20:35:38] [MSG] #> hello!
+#> [2023-02-10 20:35:38] [EXP] warning("hello!")
+#> [2023-02-10 20:35:38] [WRN] #> hello!
+#> [2023-02-10 20:35:38] [EXP] stop("error here")
+#> [2023-02-10 20:35:38] [ERR] #> error here
 ```
