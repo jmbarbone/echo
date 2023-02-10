@@ -1,7 +1,3 @@
-`%||%` <- function(x, y) {
-  if (is.null(x)) y else x
-}
-
 cat0 <- function(..., sep = "") {
   cat(..., sep = sep, file = echo_get_log())
 }
