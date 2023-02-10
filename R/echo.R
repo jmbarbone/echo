@@ -15,27 +15,35 @@
 #'   When set, all outputs at the `level` or below are run. Errors are always
 #'   logged as they will interrupt and stop the program.
 #'
-#' @param exprs Expressions to evaluate.
+#' @param expr Expression to evaluate; should be written with curly braces (see
+#'   examples)
 #' @param log A connection or file name for outputs; defaults to `stdout()`
 #' @param msg Logical, if `FALSE` does not output a message; defaults to `TRUE`
 #' @param level Sets the echo level (see details); defaults to `0L`
 #' @param file File path to evaluate (like [base::source()]).  If `file` is not
-#'   `NULL`, then `exprs` must be missing.
+#'   `NULL`, then `expr` must be missing`
 #' @returns Nothing, called for side-effects
 #' @examples
-#' try(echo({
-#'   1 + 1
-#'   Sys.sleep(2)
-#'   head(mtcars)
-#'   message(1)
-#'   warning(2)
-#'   stop(3)
-#' }))
+#' # make sure to use braces for expr
+#' echo(letters, level = 0)   # bad
+#' echo({letters}, level = 0) # good
+#'
+#' try(echo(
+#'   expr = {
+#'     print(1 + 1)
+#'     Sys.sleep(2)
+#'     head(mtcars)
+#'     message(1)
+#'     warning(2)
+#'     stop(3)
+#'   },
+#'   level = 0
+#' ))
 #'
 #' try(echo(file = system.file("example-script.R", package = "echo")))
 #' @export
 echo <- function(
-    exprs,
+    expr,
     log = echo_get_log(),  # stdout()
     msg = echo_get_msg(),  # TRUE
     level = echo_get_level(),
@@ -52,17 +60,17 @@ echo <- function(
   env <- environment()
   # TODO add feature to read file
   if (!is.null(file)) {
-    if (!missing(exprs)) {
+    if (!missing(expr)) {
       stop("If 'file' is not NULL, 'expr' must be missing", call. = FALSE)
     }
-    exprs <- parse(file)
+    expr <- parse(file)
   } else {
-    exprs <- as.list(substitute(exprs))[-1]
+    expr <- as.list(substitute(expr))[-1]
   }
 
   # TODO add functions for other controls
-  for (expr in exprs) {
-    evaluate(expr, env = env)
+  for (ex in expr) {
+    evaluate(ex, env = env)
   }
 
   invisible()

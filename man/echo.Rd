@@ -5,7 +5,7 @@
 \title{Echo}
 \usage{
 echo(
-  exprs,
+  expr,
   log = echo_get_log(),
   msg = echo_get_msg(),
   level = echo_get_level(),
@@ -13,7 +13,8 @@ echo(
 )
 }
 \arguments{
-\item{exprs}{Expressions to evaluate.}
+\item{expr}{Expression to evaluate; should be written with curly braces (see
+examples)}
 
 \item{log}{A connection or file name for outputs; defaults to \code{stdout()}}
 
@@ -22,7 +23,7 @@ echo(
 \item{level}{Sets the echo level (see details); defaults to \code{0L}}
 
 \item{file}{File path to evaluate (like \code{\link[base:source]{base::source()}}).  If \code{file} is not
-\code{NULL}, then \code{exprs} must be missing.}
+\code{NULL}, then \code{expr} must be missing`}
 }
 \value{
 Nothing, called for side-effects
@@ -45,6 +46,10 @@ When set, all outputs at the \code{level} or below are run. Errors are always
 logged as they will interrupt and stop the program.
 }
 \examples{
+# make sure to use braces for expr
+echo(letters, level = 0)   # bad
+echo({letters}, level = 0) # good
+
 try(echo({
   1 + 1
   Sys.sleep(2)
