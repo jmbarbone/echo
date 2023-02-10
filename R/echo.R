@@ -21,7 +21,7 @@
 #' @param level Sets the echo level (see details)
 #' @param file File path to evaluate (like [base::source()]).  If `file` is not
 #'   `NULL`, then `exprs` must be missing.
-#' @returns returns the last evaluated value, invisibly
+#' @returns Nothing, called for side-effects
 #' @examples
 #' try(echo({
 #'   1 + 1
@@ -62,10 +62,10 @@ echo <- function(
 
   # TODO add functions for other controls
   for (expr in exprs) {
-    res <- evaluate(expr, env = env)
+    evaluate(expr, env = env)
   }
 
-  invisible(res)
+  invisible()
 }
 
 evaluate <- function(expr, env = env) {

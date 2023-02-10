@@ -25,7 +25,7 @@ echo(
 \item{to}{A connection or file name for outputs}
 }
 \value{
-returns the last evaluated value, invisibly
+Nothing, called for side-effects
 }
 \description{
 Echo expression or a file
