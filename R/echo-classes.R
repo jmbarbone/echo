@@ -8,10 +8,7 @@ echo_echo <- function(x, level = "NUL") {
 }
 
 print.echo_exp <- function(x) {
-  cat0(time(), "[EXP] ")
-  # dep <- deparse1(expr)
-  dep <- deparse1(x)
-  catln(dep)
+  catln(time(), "[EXP] ", x)
 }
 
 print.echo_out <- function(x) {
