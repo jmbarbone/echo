@@ -49,7 +49,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">echo</span><span class="op">(</span></span>
-<span>  <span class="va">exprs</span>,</span>
+<span>  <span class="va">expr</span>,</span>
 <span>  log <span class="op">=</span> <span class="fu">echo_get_log</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  msg <span class="op">=</span> <span class="fu">echo_get_msg</span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  level <span class="op">=</span> <span class="fu">echo_get_level</span><span class="op">(</span><span class="op">)</span>,</span>
@@ -59,8 +59,9 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>exprs</dt>
-<dd><p>Expressions to evaluate.</p></dd>
+    <dl><dt>expr</dt>
+<dd><p>Expression to evaluate; should be written with curly braces (see
+examples)</p></dd>
 
 
 <dt>log</dt>
@@ -77,7 +78,7 @@
 
 <dt>file</dt>
 <dd><p>File path to evaluate (like <code><a href="https://rdrr.io/r/base/source.html" class="external-link">base::source()</a></code>).  If <code>file</code> is not
-<code>NULL</code>, then <code>exprs</code> must be missing.</p></dd>
+<code>NULL</code>, then <code>expr</code> must be missing`</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -111,7 +112,12 @@ logged as they will interrupt and stop the program.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">echo</span><span class="op">(</span><span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># make sure to use braces for expr</span></span></span>
+<span class="r-in"><span><span class="fu">echo</span><span class="op">(</span><span class="va">letters</span>, level <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>   <span class="co"># bad</span></span></span>
+<span class="r-in"><span><span class="fu">echo</span><span class="op">(</span><span class="op">{</span><span class="va">letters</span><span class="op">}</span>, level <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="co"># good</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-19 20:47:47] [EXP] letters</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">echo</span><span class="op">(</span><span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span></span>
@@ -119,16 +125,16 @@ logged as they will interrupt and stop the program.</p>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-10 20:17:12] [MSG] #&gt; 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-10 20:17:12] [WRN] #&gt; 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-10 20:17:12] [ERR] #&gt; 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-19 20:47:49] [MSG] #&gt; 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-19 20:47:49] [WRN] #&gt; 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-19 20:47:49] [ERR] #&gt; 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error : Error in stop(3)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   3</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">echo</span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example-script.R"</span>, package <span class="op">=</span> <span class="st">"echo"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-10 20:17:14] [MSG] #&gt; 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-10 20:17:14] [WRN] #&gt; 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-10 20:17:14] [ERR] #&gt; 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-19 20:47:51] [MSG] #&gt; 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-19 20:47:51] [WRN] #&gt; 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-02-19 20:47:51] [ERR] #&gt; 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error : Error in stop(3)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   3</span>
 </code></pre></div>
