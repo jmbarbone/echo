@@ -15,6 +15,9 @@
 #'   When set, all outputs at the `level` or below are run. Errors are always
 #'   logged as they will interrupt and stop the program.
 #'
+#'   Timestamps are printed in UTC by default.  To control this, set the option
+#'   value, such as `options(echo.timezone = "EST")`.
+#'
 #' @param expr Expression to evaluate; should be written with curly braces (see
 #'   examples)
 #' @param log A connection or file name for outputs; defaults to `stdout()`
