@@ -18,10 +18,10 @@ test_that("echo() works", {
     )
   )
 
-  expect_error(
+  expect_output(expect_error(
     echo(file = system.file("example-script.R", package = "echo"), log = NULL),
     "3"
-  )
+  ))
 
   expect_error(
     echo({ 1 }, file = tempfile()),
