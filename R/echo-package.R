@@ -1,3 +1,4 @@
+#' @aliases echo_package
 #' @keywords internal
 "_PACKAGE"
 
