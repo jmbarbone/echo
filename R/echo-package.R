@@ -6,7 +6,7 @@
 ## usethis namespace: end
 NULL
 
-op.echo <- list(
+op.echo <- list( # nolint: object_name_linter.
   echo.timezone = "UTC"
 )
 

@@ -57,8 +57,8 @@
 #' @export
 echo <- function(
     expr,
-    log = echo_get_log(),  # stdout()
-    msg = echo_get_msg(),  # TRUE
+    log = echo_get_log(),  #> stdout()
+    msg = echo_get_msg(),  #> TRUE
     level = echo_get_level(),
     file = NULL
 ) {
