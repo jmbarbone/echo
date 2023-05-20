@@ -44,20 +44,36 @@ Levels of output can be controlled with \code{level}:
 
 When set, all outputs at the \code{level} or below are run. Errors are always
 logged as they will interrupt and stop the program.
+
+Timestamps are printed in UTC by default.  To control this, set the option
+value, such as \code{options(echo.timezone = "EST")}.
 }
 \examples{
 # make sure to use braces for expr
 echo(letters, level = 0)   # bad
 echo({letters}, level = 0) # good
 
-try(echo({
-  1 + 1
-  Sys.sleep(2)
-  head(mtcars)
-  message(1)
-  warning(2)
-  stop(3)
-}))
+try(echo(
+  expr = {
+    print(1 + 1)
+    Sys.sleep(2)
+    head(mtcars)
+    message(1)
+    warning(2)
+    stop(3)
+  },
+  level = 0
+))
 
+
+# Parse lines in a file instead
 try(echo(file = system.file("example-script.R", package = "echo")))
+
+# Note that
+x <- c("example for", "writing lines")
+echo({
+  x
+  print(x)
+  writeLines(x)
+}, level = 0)
 }
