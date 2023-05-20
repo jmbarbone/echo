@@ -7,7 +7,10 @@ catln <- function(...) {
 }
 
 time <- function() {
-  paste0("[", format(Sys.time(), tz = "UTC"), "] ")
+  sprintf(
+    "[%s] ",
+    format(Sys.time(), tc = getOption("echo.timezone", "UTC"))
+  )
 }
 
 echo_get_log <- function() {
