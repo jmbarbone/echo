@@ -43,7 +43,17 @@
 #'   level = 0
 #' ))
 #'
+#'
+#' # Parse lines in a file instead
 #' try(echo(file = system.file("example-script.R", package = "echo")))
+#'
+#' # Note that
+#' x <- c("example for", "writing lines")
+#' echo({
+#'   x
+#'   print(x)
+#'   writeLines(x)
+#' }, level = 0)
 #' @export
 echo <- function(
     expr,
@@ -99,7 +109,7 @@ evaluate <- function(expr, env = env) {
     }
   ))
 
-  if (is.null(value)) {
+  if (is.null(value) && identical(output, character())) {
     utils::flush.console()
   } else {
     echo_out(output)
