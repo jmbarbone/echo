@@ -26,10 +26,17 @@ The goal of `{echo}` is to provide a function for evaluating and logging a scrip
 
 ## Installation
 
-You can install the development version of `{echo}` like so:
+Install `{echo}` from CRAN with:
 
 ``` r
-remotes::install_github("jmbarbone/echo")
+install.packages("echo")
+```
+
+Alternatively, you can install the development version of `{echo}` [GitHub](https://github.com/) with:
+
+```
+# install.packages("devtools")
+devtools::install_github("jmbarbone/echo")
 ```
 
 ## Example
