@@ -7,11 +7,13 @@ echo_echo <- function(x, level = "NUL") {
   print(x)
 }
 
-print.echo_exp <- function(x) {
+#' @export
+print.echo_exp <- function(x, ...) {
   catln(time(), "[EXP] ", x)
 }
 
-print.echo_out <- function(x) {
+#' @export
+print.echo_out <- function(x, ...) {
   if (!length(x) || isTRUE(!nzchar(x))) {
     return(invisible())
   }
@@ -19,15 +21,18 @@ print.echo_out <- function(x) {
   catln(paste0(time(), "[OUT] #> ", x, collapse = "\n"))
 }
 
-print.echo_msg <- function(x) {
+#' @export
+print.echo_msg <- function(x, ...) {
   cat0(paste0(time(), "[MSG] #> ", x))
 }
 
-print.echo_wrn <- function(x) {
+#' @export
+print.echo_wrn <- function(x, ...) {
   catln(paste0(time(), "[WRN] #> ", x))
 }
 
-print.echo_err <- function(x) {
+#' @export
+print.echo_err <- function(x, ...) {
   catln(paste0(time(), "[ERR] #> ", x))
 }
 
