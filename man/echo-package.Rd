@@ -5,9 +5,9 @@
 \alias{echo-package}
 \alias{_PACKAGE}
 \alias{echo_package}
-\title{echo: Log R Evaluations}
+\title{echo: Echo Code Evaluations}
 \description{
-Capture R code and script executions by expressions, outputs, and condition calls for logging.
+Capture code evaluations and script executions by expressions, outputs, and condition calls for logging.
 }
 \seealso{
 Useful links:

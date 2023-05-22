@@ -1,5 +1,5 @@
 Package: echo
-Title: Log R Evaluations
+Title: Echo Code Evaluations
 Version: 0.0.0.9000
 Authors@R:
     person(given   = "Jordan Mark",
@@ -8,8 +8,8 @@ Authors@R:
            email   = "jmbarbone@gmail.com",
            comment = c(ORCID = "0000-0001-9788-3628"))
 Maintainer: Jordan Mark Barbone <jmbarbone@gmail.com>
-Description: Capture R code and script executions by expressions, outputs, and 
-    condition calls for logging.
+Description: Capture code evaluations and script executions by expressions,
+    outputs, and condition calls for logging.
 License: MIT + file LICENSE
 Depends:
     R (>= 3.6)
