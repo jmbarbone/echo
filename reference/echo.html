@@ -117,7 +117,7 @@ value, such as <code>options(echo.timezone = "EST")</code>.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># make sure to use braces for expr</span></span></span>
 <span class="r-in"><span><span class="fu">echo</span><span class="op">(</span><span class="va">letters</span>, level <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>   <span class="co"># bad</span></span></span>
 <span class="r-in"><span><span class="fu">echo</span><span class="op">(</span><span class="op">{</span><span class="va">letters</span><span class="op">}</span>, level <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="co"># good</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:41] [EXP] letters</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:09] [EXP] letters</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">echo</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  expr <span class="op">=</span> <span class="op">{</span></span></span>
@@ -130,25 +130,25 @@ value, such as <code>options(echo.timezone = "EST")</code>.</p>
 <span class="r-in"><span>  <span class="op">}</span>,</span></span>
 <span class="r-in"><span>  level <span class="op">=</span> <span class="fl">0</span></span></span>
 <span class="r-in"><span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:41] [EXP] print(1 + 1)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:41] [OUT] #&gt; [1] 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:41] [EXP] Sys.sleep(2)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:43] [EXP] head(mtcars)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:43] [EXP] message(1)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:43] [MSG] #&gt; 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:43] [EXP] warning(2)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:43] [WRN] #&gt; 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:43] [EXP] stop(3)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:43] [ERR] #&gt; 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:09] [EXP] print(1 + 1)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:09] [OUT] #&gt; [1] 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:09] [EXP] Sys.sleep(2)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:11] [EXP] head(mtcars)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:11] [EXP] message(1)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:11] [MSG] #&gt; 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:11] [EXP] warning(2)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:11] [WRN] #&gt; 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:11] [EXP] stop(3)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:11] [ERR] #&gt; 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error : Error in stop(3)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   3</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Parse lines in a file instead</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">echo</span><span class="op">(</span>file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"example-script.R"</span>, package <span class="op">=</span> <span class="st">"echo"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:45] [MSG] #&gt; 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:45] [WRN] #&gt; 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:45] [ERR] #&gt; 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:13] [MSG] #&gt; 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:13] [WRN] #&gt; 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:13] [ERR] #&gt; 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error : Error in stop(3)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   3</span>
 <span class="r-in"><span></span></span>
@@ -159,8 +159,8 @@ value, such as <code>options(echo.timezone = "EST")</code>.</p>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span>, level <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:45] [EXP] x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-22 15:05:45] [ERR] #&gt; object 'x' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:13] [EXP] x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2023-05-26 13:09:13] [ERR] #&gt; object 'x' not found</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Error in x</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span>   object 'x' not found</span>
 </code></pre></div>
