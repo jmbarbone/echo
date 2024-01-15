@@ -18,18 +18,21 @@
 #'   Timestamps are printed in UTC by default.  To control this, set the option
 #'   value, such as `options(echo.timezone = "EST")`.
 #'
-#' @param expr Expression to evaluate; should be written with curly braces (see
-#'   examples)
+#' @param expr Expression to evaluate.  This can be a single expression.
+#'   expressions within braces (i.e., `{ ... }`).
 #' @param log A connection or file name for outputs; defaults to `stdout()`
 #' @param msg Logical, if `FALSE` does not output a message; defaults to `TRUE`
 #' @param level Sets the echo level (see details); defaults to `0L`
 #' @param file File path to evaluate (like [base::source()]).  If `file` is not
 #'   `NULL`, then `expr` must be missing`
+#' @param exprs Expressions to evaluate.  This can be a single `expression`.
+#' @param progress Logical, if `TRUE` shows a progress bar; defaults to `FALSE`
 #' @returns Nothing, called for side-effects
 #' @examples
 #' # make sure to use braces for expr
-#' echo(letters, level = 0)   # bad
-#' echo({letters}, level = 0) # good
+#' echo({ letters }, level = 0) # good
+#' echo({letters}, level = 0)   # still good
+#' echo(letters, level = 0)     # also good
 #'
 #' try(echo(
 #'   expr = {
@@ -42,7 +45,6 @@
 #'   },
 #'   level = 0
 #' ))
-#'
 #'
 #' # Parse lines in a file instead
 #' try(echo(file = system.file("example-script.R", package = "echo")))
@@ -60,7 +62,9 @@ echo <- function(
     log = echo_get_log(),  #> stdout()
     msg = echo_get_msg(),  #> TRUE
     level = echo_get_level(),
-    file = NULL
+    file = NULL,
+    exprs = NULL,
+    progress = getOption("echo.progress", FALSE)
 ) {
   op <- options(
     echo.msg = msg,
@@ -77,19 +81,35 @@ echo <- function(
       stop("If 'file' is not NULL, 'expr' must be missing", call. = FALSE)
     }
     expr <- parse(file)
+  } else if (!is.null(exprs)) {
+    if (!missing(expr)) {
+      stop("If 'exprs' is not NULL, 'expr' must be missing", call. = FALSE)
+    }
+    stopifnot(inherits(exprs, "expression"))
+    expr <- as.expression(exprs)
   } else {
-    expr <- as.list(substitute(expr))[-1]
+    expr <- as.list(substitute(expr))
+    if (identical(expr[[1]], quote(`{`))) {
+      expr <- expr[-1]
+    }
   }
 
-  # TODO add functions for other controls
+  if (progress) {
+    progress <- echo_progress
+  } else {
+    progress <- echo_null
+  }
+
+  progress$reset()
+  progress$total <- length(expr)
   for (ex in expr) {
-    evaluate(ex, env = env)
+    evaluate(ex, env = env, progress = progress)
   }
 
   invisible()
 }
 
-evaluate <- function(expr, env = env) {
+evaluate <- function(expr, env = env, progress = echo_null) {
   dep <- deparse1(expr)
   echo_exp(dep)
 
@@ -105,9 +125,13 @@ evaluate <- function(expr, env = env) {
     },
     error = function(e) {
       echo_err(conditionMessage(e))
+      progress$flush()
+      progress$show()
       stop("Error in ", dep, "\n  ", conditionMessage(e), call. = FALSE)
     }
   ))
+
+  progress$flush()
 
   if (is.null(value) && identical(output, character())) {
     utils::flush.console()
@@ -115,5 +139,7 @@ evaluate <- function(expr, env = env) {
     echo_out(output)
   }
 
+  progress$add(1L)
+  progress$show()
   invisible(value)
 }
