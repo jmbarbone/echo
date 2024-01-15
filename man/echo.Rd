@@ -9,12 +9,14 @@ echo(
   log = echo_get_log(),
   msg = echo_get_msg(),
   level = echo_get_level(),
-  file = NULL
+  file = NULL,
+  exprs = NULL,
+  progress = getOption("echo.progress", FALSE)
 )
 }
 \arguments{
-\item{expr}{Expression to evaluate; should be written with curly braces (see
-examples)}
+\item{expr}{Expression to evaluate.  This can be a single expression.
+expressions within braces (i.e., \code{{ ... }}).}
 
 \item{log}{A connection or file name for outputs; defaults to \code{stdout()}}
 
@@ -24,6 +26,10 @@ examples)}
 
 \item{file}{File path to evaluate (like \code{\link[base:source]{base::source()}}).  If \code{file} is not
 \code{NULL}, then \code{expr} must be missing`}
+
+\item{exprs}{Expressions to evaluate.  This can be a single \code{expression}.}
+
+\item{progress}{Logical, if \code{TRUE} shows a progress bar; defaults to \code{FALSE}}
 }
 \value{
 Nothing, called for side-effects
@@ -50,8 +56,9 @@ value, such as \code{options(echo.timezone = "EST")}.
 }
 \examples{
 # make sure to use braces for expr
-echo(letters, level = 0)   # bad
-echo({letters}, level = 0) # good
+echo({ letters }, level = 0) # good
+echo({letters}, level = 0)   # still good
+echo(letters, level = 0)     # also good
 
 try(echo(
   expr = {
@@ -64,7 +71,6 @@ try(echo(
   },
   level = 0
 ))
-
 
 # Parse lines in a file instead
 try(echo(file = system.file("example-script.R", package = "echo")))
