@@ -4,6 +4,8 @@ echo_echo <- function(x, level = "NUL") {
     return(invisible())
   }
 
+  op <- options(width = getOption("echo.width", getOption("width", 80L)))
+  on.exit(options(op), add = TRUE)
   print(x)
 }
 

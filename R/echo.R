@@ -66,7 +66,7 @@ echo <- function(
     echo.msg = msg,
     echo.log = log,
     echo.level = level,
-    width = max(getOption("width") - 37, 30)
+    echo.width = max(getOption("width") - 37, 30)
   )
   on.exit(options(op), add = TRUE)
 
