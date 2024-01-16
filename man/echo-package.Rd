@@ -3,7 +3,6 @@
 \docType{package}
 \name{echo-package}
 \alias{echo-package}
-\alias{_PACKAGE}
 \alias{echo_package}
 \title{echo: Echo Code Evaluations}
 \description{
