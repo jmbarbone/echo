@@ -111,31 +111,31 @@ echo <- function(
 
 evaluate <- function(expr, env = env, progress = echo_null) {
   dep <- deparse1(expr)
+  progress$flush()
   echo_exp(dep)
+  progress$show()
 
+  # FIXME include progress$flush(), $show() in echo_echo()
   output <- utils::capture.output(value <- tryCatch(
     eval(as.expression(expr), envir = env),
     message = function(e) {
-      echo_msg(conditionMessage(e))
+      echo_msg(conditionMessage(e), p = progress)
       tryInvokeRestart("muffleMessage")
     },
     warning = function(e) {
-      echo_wrn(conditionMessage(e))
+      echo_wrn(conditionMessage(e), p = progress)
       tryInvokeRestart("muffleWarning")
     },
     error = function(e) {
-      echo_err(conditionMessage(e))
       progress$flush()
+      echo_err(conditionMessage(e), p = progress)
       progress$show()
       stop("Error in ", dep, "\n  ", conditionMessage(e), call. = FALSE)
     }
   ))
 
-  progress$flush()
-
-  if (is.null(value) && identical(output, character())) {
-    utils::flush.console()
-  } else {
+  if (!(is.null(value) && identical(output, character()))) {
+    progress$flush()
     echo_out(output)
   }
 

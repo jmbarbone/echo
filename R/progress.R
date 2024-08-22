@@ -121,13 +121,11 @@ local(envir = echo_progress, {
     if (self$at == 0L) {
       return(invisible())
     }
-
     w <- getOption("width")
     bs <- strrep("\b", w)
     cat(bs)
-    cat(strrep(" ", w))
+    cat("\r", strrep(" ", w), sep = "")
     cat(bs)
-    cat("\r")
   }
 
   # 'internal' methods
@@ -148,6 +146,7 @@ local(envir = echo_progress, {
     self$.width() - self$.progress()
   }
 })
+class(echo_progress) <- c("echo_progress", "environment")
 lockBinding("self", echo_progress)
 lockBinding("reset", echo_progress)
 lockBinding("set", echo_progress)
@@ -173,6 +172,7 @@ local(envir = echo_null, {
   flush <- function(...) invisible()
 })
 
+class(echo_null) <- c("echo_null", "environment")
 lockBinding("self", echo_null)
 lockBinding("reset", echo_null)
 lockBinding("set", echo_null)
