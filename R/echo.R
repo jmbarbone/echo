@@ -112,7 +112,7 @@ echo <- function(
 evaluate <- function(expr, env = env, progress = echo_null) {
   dep <- deparse1(expr)
   progress$flush()
-  echo_exp(dep)
+  echo_exp(dep, p = progress)
   progress$show()
 
   # FIXME include progress$flush(), $show() in echo_echo()
@@ -136,7 +136,7 @@ evaluate <- function(expr, env = env, progress = echo_null) {
 
   if (!(is.null(value) && identical(output, character()))) {
     progress$flush()
-    echo_out(output)
+    echo_out(output, p = progress)
   }
 
   progress$add(1L)
