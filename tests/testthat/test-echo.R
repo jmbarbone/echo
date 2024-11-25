@@ -31,6 +31,8 @@ test_that("echo() works", {
     echo({ 1 }, file = tempfile()), # nolint: brace_linter.
     "must be missing"
   )
+  
+  expect_error(echo(expr = NULL, exprs = NULL))
 
   # progress still produces outputs
   exprs <- expression(print(1), print(2))
