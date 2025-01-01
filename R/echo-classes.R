@@ -1,8 +1,16 @@
 
-echo_echo <- function(x, level = "NUL") {
+echo_echo <- function(x, level = "NUL", p = NULL) {
   if (echo_get_level() > level) {
     return(invisible())
   }
+
+  if (inherits(p, "echo_progress")) {
+    p$flush()
+    on.exit(p$show(), add = TRUE)
+  }
+
+  op <- options(width = getOption("echo.width", getOption("width", 80L)))
+  on.exit(options(op), add = TRUE)
 
   print(x)
 }
@@ -36,32 +44,32 @@ print.echo_err <- function(x, ...) {
   catln(paste0(time(), "[ERR] #> ", x))
 }
 
-echo_exp <- function(x) {
-  echo_class("exp", x)
+echo_exp <- function(x, p = NULL) {
+  echo_class("exp", x, p = p)
 }
 
-echo_out <- function(x) {
-  echo_class("out", x)
+echo_out <- function(x, p = NULL) {
+  echo_class("out", x, p = p)
 }
 
-echo_msg <- function(x) {
-  echo_class("msg", x)
+echo_msg <- function(x, p = NULL) {
+  echo_class("msg", x, p = p)
 }
 
-echo_wrn <- function(x) {
-  echo_class("wrn", x)
+echo_wrn <- function(x, p = NULL) {
+  echo_class("wrn", x, p = p)
 }
 
-echo_err <- function(x) {
-  echo_class("err", x)
+echo_err <- function(x, p = NULL) {
+  echo_class("err", x, p = p)
 }
 
-echo_class <- function(class, text) {
+echo_class <- function(class, text, p = NULL) {
   stopifnot(toupper(class) %in% level_levels())
   x <- structure(
     text,
     class = c("echo_echo", paste0("echo_", class), "list")
   )
 
-  echo_echo(x, level = toupper(class))
+  echo_echo(x, level = toupper(class), p = p)
 }
